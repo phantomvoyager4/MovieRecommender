@@ -1,7 +1,10 @@
 # Movie Recommender
 
 Prototype of a mobile application for movie recommendations based on Content-Based Filtering.
-The application consists of a Python backend (FastAPI) and a mobile frontend in React Native (Expo).
+The application consists of 3 parts:
+* [Prototype design](https://www.figma.com/design/V1D3ER33Z8SddJJGvqvzx3/wad?node-id=0-1&t=ACdv0u7LSfThp3us-1) in Figma
+* Python backend (FastAPI)
+* mobile frontend in React Native (Expo)
 
 ## Prerequisites
 

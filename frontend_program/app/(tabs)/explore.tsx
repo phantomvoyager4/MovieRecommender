@@ -30,13 +30,13 @@ export default function ExploreScreen() {
         </View>
 
         <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mb-8">
-          <CategoryChip label="Action" color="bg-brand-red" />
+          <CategoryChip label="Action" color="bg-brand-red"/>
           <CategoryChip label="Horror" color="bg-brand-green" />
           <CategoryChip label="Drama" color="bg-brand-pink" />
           <CategoryChip label="Sci-fi" color="bg-brand-purple" />
         </ScrollView>
 
-        <Text className="text-brand-dark text-xl font-bold mb-4">Recommended</Text>
+        <Text className="text-brand-dark text-2xl font-bold mb-4">Recommended</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mb-8">
           <MovieCard 
             title="Avatar: The Way of Water"
@@ -54,7 +54,7 @@ export default function ExploreScreen() {
           />
         </ScrollView>
 
-        <Text className="text-brand-dark text-xl font-bold mb-4">Upcoming movies</Text>
+        <Text className="text-brand-dark text-2xl font-bold mb-4">Upcoming movies</Text>
         <ScrollView horizontal showsHorizontalScrollIndicator={false} className="mb-20">
              <MovieCard 
             title="Spider-Man"

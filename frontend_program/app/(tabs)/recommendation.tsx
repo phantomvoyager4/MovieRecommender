@@ -1,9 +1,9 @@
-import { View, Text, TextInput, TouchableOpacity, ScrollView, ActivityIndicator, Alert, Image } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, ScrollView, ActivityIndicator, Alert, Image, Keyboard } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import { useState } from 'react';
 
-const API_URL = 'http://[YOUR API ADDRESS]:8000/recommend'; 
+const API_URL = 'http://192.168.1.82:8000/recommend'; 
 
 export default function RecommendationScreen() {
   const [addedMovies, setAddedMovies] = useState<string[]>([]);
@@ -36,6 +36,7 @@ export default function RecommendationScreen() {
 
 
   const getRecommendations = async () => {
+    Keyboard.dismiss();
     if (addedMovies.length < 2) {
       setError('Please add at least 2 movies!');
       return;
@@ -55,6 +56,7 @@ export default function RecommendationScreen() {
       const data = await response.json();
 
       if (data.status === 'success') {
+        setAddedMovies([]);
         setRecommendations(data.data);
       } else {
         Alert.alert("No results", "Could not find recommendations based on these titles.");
@@ -77,7 +79,7 @@ export default function RecommendationScreen() {
           </Text>
         </View>
 
-        <Text className="text-brand-dark text-lg mb-4 text-center">
+        <Text className="text-brand-dark text-lg mb-4">
           Add movies you like (2-5):
         </Text>
 
@@ -93,7 +95,7 @@ export default function RecommendationScreen() {
               placeholderTextColor="#999"
               editable={addedMovies.length < 5}
               onSubmitEditing={handleAddMovie}
-              className="flex-1 p-4 border-2 border-brand-dark rounded-3xl text-brand-dark text-base bg-white/50"
+              className="flex-1 p-4 border-2 border-brand-dark rounded-3xl text-brand-dark text-base text-lg bg-white/50"
             />
             
             <TouchableOpacity 

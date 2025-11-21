@@ -38,7 +38,7 @@ The API server is responsible for calculating recommendations.
     ```
 
 4.  **Verify operation:**
-    Open a browser on your computer and go to: [http://127.0.0.1:8000](http://127.0.0.1:8000). You should see the message: `{"message": "Serwer działa!..."}`.
+    Open a browser on your computer and go to: [http://127.0.0.1:8000](http://127.0.0.1:8000). You should see the message: `{"message":"Server is working."}`.
 
 ---
 
@@ -78,8 +78,7 @@ For the phone to connect to the computer, they must be on the same Wi-Fi network
     ```typescript
     // app/(tabs)/recommendation.tsx
 
-    const API_URL = 'http://YOUR_IP_ADDRESS:8000/recommend';
-    // e.g. '[http://192.168.1.15:8000/recommend](http://192.168.1.15:8000/recommend)'
+    const API_URL = 'http://[YOUR_IP_ADDRESS:8000]/recommend';
     ```
 
 3.  **Save the file.**

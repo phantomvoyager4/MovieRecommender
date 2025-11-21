@@ -16,15 +16,12 @@ app.add_middleware(
 )
 
 
-print("Uruchamianie serwera... Wczytuję dane...")
-
 try:
     df = pd.read_pickle("movies_data.pkl")
     with open("tfidf_matrix.pkl", "rb") as f:
         tfidf_matrix = pickle.load(f)
-    print("Dane wczytane pomyślnie")
 except FileNotFoundError:
-    print("BŁĄD: Nie znaleziono plików .pkl. Uruchom najpierw data_prep.ipynb")
+    print("ERROR: .pkl files not found.")
 
     df = pd.DataFrame()
     tfidf_matrix = None
@@ -61,19 +58,11 @@ class MovieRecommender:
             return []
 
         user_vector = self.matrix[valid_indices].sum(axis=0)
-
         user_vector = np.asarray(user_vector).reshape(1, -1)
-
         cosine_sim = linear_kernel(user_vector, self.matrix).flatten()
-
         sim_scores = cosine_sim.argsort()[-(top_n + len(valid_indices)):][::-1]
-
         final_indices = [i for i in sim_scores if i not in valid_indices][:top_n]
-
-        result_df = self.df.iloc[final_indices][['title', 'release_date', 'overview']]
-
-        result_df = result_df.fillna("")
-
+        result_df = self.df.iloc[final_indices][['title', 'release_date', 'overview']].fillna("")
         return result_df.to_dict(orient='records')
 
 
@@ -86,19 +75,17 @@ class UserInput(BaseModel):
 
 @app.post("/recommend")
 def get_recommendations(user_input: UserInput):
-    print(f"Otrzymano zapytanie: {user_input.movies}")
+    print(user_input.movies)
 
     results = recommender.get_recommendations(user_input.movies)
 
     if not results:
-        return {"status": "error", "message": "Nie znaleziono filmów lub brak rekomendacji."}
+        return {"status": "error", "message": "No recommendations found for the given titles."}
 
     return {"status": "success", "data": results}
 
 
 @app.get("/")
 def home():
-    return {"message": "Serwer działa! Prześlij zapytanie POST na /recommend"}
+    return {"message": "Server is running! Send POST to /recommend"}
 
-# uruchomienie servera: uvicorn main:app --reload
-# po pomyślnym uruchomieniu otworzyć templatkę html
